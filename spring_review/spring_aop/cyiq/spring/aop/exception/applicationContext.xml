@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+       
+     	<bean id="personDao" class="cyiq.spring.aop.exception.dao.PersonDaoImpl"></bean>    
+     	<bean id="personService" class="cyiq.spring.aop.exception.service.PersonServiceImpl">
+     		<property name="personDao" ref="personDao"></property>
+     	</bean>
+     	<bean id="personAction" class="cyiq.spring.aop.exception.action.PersonAction">
+     		<property name="personService" ref="personService"></property>
+     	</bean>
+		<bean id="myExceptionProcess" class="cyiq.spring.aop.exception.MyExceptionProcess"></bean>
+		<aop:config>
+			<aop:pointcut expression="execution(* cyiq.spring.aop.exception.service..*.*(..))" id="perform"/>
+			<aop:aspect ref="myExceptionProcess">
+				<!-- 异常通知：目标方法抛出异常后执行的通知 -->
+				<aop:after-throwing method="getExceptionMessage" throwing="e" pointcut-ref="perform"/>
+			</aop:aspect>
+		</aop:config>
+		       
+</beans>

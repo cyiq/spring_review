@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+           
+	<bean id="person" class="cyiq.spring.di.xml.set.Person">
+		<property name="pname" value="aaaaaaa"></property>
+		<property name="student" ref="student"></property>
+		<property name="list">
+			<list>
+				<value>list1</value>
+				<value>list2</value>
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<value>set1</value>
+				<value>set2</value>
+				<value>set1</value>
+			</set>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="map1">
+					<value>val1</value>
+				</entry>
+				<entry key="map2">
+					<value>val2</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="student" class="cyiq.spring.di.xml.set.Student">
+		<property name="sid" value="2"></property>
+		<property name="sname" value="student"></property>
+	</bean>
+           
+</beans>
